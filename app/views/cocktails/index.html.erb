@@ -1,14 +1,27 @@
-<h1>Cocktails</h1>
-<div class="row">
-  <% @cocktails.each do |r| %>
-  <div class="col-xs-12 col-sm-4">
-    <h3><%= r.name %></h3>
-    <p><%= r.ingredient %></p>
-    <p><%= r.dose %></p>
-    <p><%= link_to "See details", @cocktail, class: "btn btn-primary"%><p>
-    <p><%= link_to "Edit Cocktail", edit_cocktail_path(r), class: "btn btn-primary" %></p>
-    <p><%= link_to "Remove Cocktail", cocktail_path(r), method: :delete, data: {confirm: "Really remove cocktail?"}, class: "btn btn-danger" %></p>
-  </div>
-  <% end %>
+<h1 class="text-center">Your cocktail list</h1>
+
+<div class="text-center padded">
+  <%= link_to "Create a cocktail", new_cocktail_path, class: "btn btn-primary" %>
 </div>
-<%= link_to "Add New Cocktail", new_cocktail_path %>
+
+<div class="container">
+  <div class="row">
+    <% @cocktails.each do |cocktail| %>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card text-center">
+
+          <% if cocktail.photo %>
+            <div class="card-header" style="background-image: url('<%= image_path cocktail.photo%>')">
+            </div>
+          <% else %>
+            <div class="card-header" style="background-image: url('http://www.seriouseats.com/images/2014/11/20141104-cocktail-party-old-fashioneds-holiday-vicky-wasik-3.jpg')">
+            </div>
+          <% end %>
+          <div class="card-body">
+            <%= link_to cocktail.name, cocktail_path(cocktail) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
